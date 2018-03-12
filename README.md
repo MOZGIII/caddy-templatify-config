@@ -29,9 +29,31 @@ yarn add --dev caddy-templatify-config
 
 ## Usage
 
+```shell
+caddy-templatify-config [PREFIX]
+```
+
 Tool reads the config file sample from stdin and writes the resulting
 template to stdout:
 
 ```shell
-cat sample/config.json | caddy-templatify-config > template/config.json
+caddy-templatify-config < sample/config.json > template/config.json
+```
+
+### Example
+
+```shell
+$ cat > config.js
+{
+  "hello": "world"
+}
+$ cat config.js | caddy-templatify-config
+{"hello":"{{ if .Env.HELLO }}{{ js .Env.HELLO }}{{ else }}world{{ end }}"}
+```
+
+And with prefix:
+
+```shell
+$ cat config.js | caddy-templatify-config "MY_APP_"
+{"hello":"{{ if .Env.MY_APP_HELLO }}{{ js .Env.MY_APP_HELLO }}{{ else }}world{{ end }}"}
 ```
