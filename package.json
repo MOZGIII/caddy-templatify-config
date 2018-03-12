@@ -1,0 +1,19 @@
+{
+  "name": "caddy-templatify-config",
+  "version": "0.1.0",
+  "description": "Convert JSON config file to Caddy template",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier:format": "prettier --write *.js",
+    "prettier:check": "prettier -l *.js"
+  },
+  "bin": {
+    "caddy-templatify-config": "./cli.js"
+  },
+  "author": "MOZGIII",
+  "license": "GPL-2.0",
+  "devDependencies": {
+    "prettier": "^1.11.1"
+  }
+}
