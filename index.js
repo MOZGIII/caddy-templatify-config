@@ -1,5 +1,7 @@
 "use strict";
 
+const { constantCase } = require("constant-case");
+
 const readWholeStdin = () => {
   process.stdin.resume();
   process.stdin.setEncoding("utf8");
@@ -24,14 +26,14 @@ const writeToStdout = (buffer) => {
 
 const templatifyJson = (buffer, prefix) => {
   const json = JSON.parse(buffer);
-  const upPrefix = prefix.toUpperCase();
+  const elements = []
   Object.keys(json).forEach((key) => {
-    const envexpr = "env " + upPrefix + key.toUpperCase();
+    const envexpr = `env "${prefix + constantCase(key)}"`;
     const val = json[key];
-    const template = `{{ if ${envexpr} }}{{ ${envexpr} | js }}{{ else }}${val}{{ end }}`;
-    json[key] = template;
+    const template = `{{ if ${envexpr} }}"{{ ${envexpr} | js }}"{{ else }}${JSON.stringify(val)}{{ end }}`;
+    elements.push(`${JSON.stringify(key)}:${template}`)
   });
-  return JSON.stringify(json);
+  return `{${elements.join(",")}}`;
 };
 
 module.exports = {
