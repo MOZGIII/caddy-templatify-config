@@ -26,9 +26,9 @@ const templatifyJson = (buffer, prefix) => {
   const json = JSON.parse(buffer);
   const upPrefix = prefix.toUpperCase();
   Object.keys(json).forEach((key) => {
-    const envexpr = ".Env." + upPrefix + key.toUpperCase();
+    const envexpr = "env " + upPrefix + key.toUpperCase();
     const val = json[key];
-    const template = `{{ if ${envexpr} }}{{ js ${envexpr} }}{{ else }}${val}{{ end }}`;
+    const template = `{{ if ${envexpr} }}{{ ${envexpr} | js }}{{ else }}${val}{{ end }}`;
     json[key] = template;
   });
   return JSON.stringify(json);
