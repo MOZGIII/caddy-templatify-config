@@ -5,11 +5,11 @@ const readWholeStdin = () => {
   process.stdin.setEncoding("utf8");
 
   let buffer = "";
-  process.stdin.on("data", chunk => {
+  process.stdin.on("data", (chunk) => {
     buffer += chunk;
   });
 
-  const deferred = new Promise(resolve => {
+  const deferred = new Promise((resolve) => {
     process.stdin.on("end", () => {
       resolve(buffer);
     });
@@ -18,14 +18,14 @@ const readWholeStdin = () => {
   return deferred;
 };
 
-const writeToStdout = buffer => {
+const writeToStdout = (buffer) => {
   process.stdout.write(buffer);
 };
 
 const templatifyJson = (buffer, prefix) => {
   const json = JSON.parse(buffer);
   const upPrefix = prefix.toUpperCase();
-  Object.keys(json).forEach(key => {
+  Object.keys(json).forEach((key) => {
     const envexpr = ".Env." + upPrefix + key.toUpperCase();
     const val = json[key];
     const template = `{{ if ${envexpr} }}{{ js ${envexpr} }}{{ else }}${val}{{ end }}`;
@@ -37,5 +37,5 @@ const templatifyJson = (buffer, prefix) => {
 module.exports = {
   readWholeStdin,
   writeToStdout,
-  templatifyJson
+  templatifyJson,
 };
