@@ -1,0 +1,7 @@
+{
+  "key": "val1",
+  "camelCase": "val2",
+  "snake_case": "val3",
+  "CONSTANT_CASE": "val4",
+  "PascalCase": "val5"
+}
