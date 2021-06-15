@@ -1,0 +1,10 @@
+# This is an example config that shows how to use the generated template
+# with caddy 2.
+
+:3000
+
+file_server
+
+templates expected.json {
+  mime application/json
+}
